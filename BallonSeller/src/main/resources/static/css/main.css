@@ -1,0 +1,57 @@
+
+
+body{
+  background:url('../img/prazdnik-den-rozhdenie-ochki-bant-shary.jpg') no-repeat center center;
+
+  /* Принудительно указываем высоту равную 100% от высоты окна браузера */
+
+  min-height:100%;
+
+  background-size:cover;
+}
+
+.some{
+
+height: 800px;
+width:  1000px;
+overflow: hidden;
+text-align: center;
+background-color: white;
+font-family: 'Roboto',sans-serif;
+padding: 10px; /* Поля вокруг текста */
+margin: 0 auto;
+margin-top: 20px;
+border-radius: 20px;
+}
+#main-menu {
+  background-color: white;
+  background-size: cover;
+}
+#main-menu ul {
+}
+#main-menu ul li{
+background-color: white;
+list-style: none;
+display: inline;
+text-align: center;
+margin-left: 15px;
+margin-right:25px;
+margin-bottom: 50%;
+}
+#main-menu ul li a {
+  color: #000000;
+  text-decoration: none;
+}
+#main-menu ul li a:hover {
+  cursor: pointer;
+}
+.header{
+  font-family: 'Roboto',sans-serif;
+  text-align: left;
+  display: inline;
+  font-size: 20px;
+  background-color: white;
+  background-size: cover;
+  margin-bottom: 50%;
+
+}
