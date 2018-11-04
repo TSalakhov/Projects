@@ -53,5 +53,9 @@ margin-bottom: 50%;
   background-color: white;
   background-size: cover;
   margin-bottom: 50%;
+}
 
+.items{
+  display: flex;
+  flex-flow: column wrap;
 }
