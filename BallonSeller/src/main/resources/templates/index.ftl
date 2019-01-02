@@ -13,13 +13,16 @@
   <nav id="main-menu">
    <#if currentUser??>
     <ul>
-      <li><a href="/"><img src="img/party_baloon-96.png"  /></a></li>
+      <li>
+        <a href="/"><img src="img/party_baloon-96.png"  /></a>
+      </li>
       <li>
         <a href="/">Air.mix </a>
     </ul>
       <#else>
-          <ul>
-            <li><a href="/"><img src="img/party_baloon-96.png"  /></a></li>
+         <ul>
+            <li>
+              <a href="/"><img src="img/party_baloon-96.png"  /></a></li>
             <li>
               <a href="/">Air.mix </a>
             </li>
@@ -28,32 +31,52 @@
           </#if>
   </nav>
 </div>
+<div class="some">
 <#if !currentUser??>
-<div class="some">
     <h2>Наши товары </h2>
-    <div class="items">
     <#list items as item>
-      <p>${item.name}</p>
-      <p>${item.cost}</p>
-      </#list>
-      </#if>
-      <#if currentUser??>
-<form method="POST" enctype="multipart/form-data" action="/refactorImage">
-<#include "csrf.ftl">
-<div class="some">
-    <h2>Наши товары </h2>
-    <div class="items">
-    <#list items as item>
+      <div class="items">
+        <div class="image">
+          <img src="/img/${item.filename}" />
+        </div>
+      <p>Название: ${item.name}</p>
+      <p>Цена: ${item.cost} рублей</p>
+      </div>
+    </#list>
+</#if>
+  <#if currentUser??>
+      <h2>Наши товары </h2>
+      <div class="items">
+        <form method="post" enctype="multipart/form-data" action="/AddItem">
+                <#include "csrf.ftl">
+                <input  name="name" id="name">
+                <input  name="cost" id="cost">
+                <input type="hidden" name="filename" id="filename">
+                <button  type="submit" class="btn btn-outline-secondary">Добавить товар</button>
+         </form>
+      <#list items as item>
+   <form method="POST" enctype="multipart/form-data" action="/refactorImage">
+      <#include "csrf.ftl">
+      <div class="refactorItem">
        <input type="hidden" value="${item.id}" id="id" name="id">
+       <div class="image">
         <img src="/img/${item.filename}">
+       </div>
+       <input type="file" class="btn btn-primary"  name="file" />
+       <button  type="submit" class="btn btn-outline-secondary">Сохранить изображение</button>
+    </form>
+    <form method="POST" enctype="multipart/form-data" action="/refactorItem">
+      <#include "csrf.ftl">
+      <input type="hidden" value="${item.id}" id="id" name="id">
       <input value="${item.name}" name="name" id="name">
       <input value="${item.cost}" name="cost" id="cost">
-        <input type="file"  name="file" />
-        <button type="submit"> Изменить </button>
-      </#list>
-		</form>
-		</#if>
-    </div>
+      <button  type="submit" class="btn btn-outline-secondary">Изменить информацию о товаре</button>
+      </div>
+    </form>
+    </#list>
   </div>
+</div>
+<hr/>
+</#if>
 </body>
 </html>

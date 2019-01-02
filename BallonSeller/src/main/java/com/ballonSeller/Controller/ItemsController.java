@@ -18,30 +18,44 @@ import java.util.UUID;
 
 
 @Controller
-public class ItemsController{
+public class ItemsController {
     @Value("${upload.path}")
     private String uploadPath;
     @Autowired
     ItemDao itemDao;
-@PostMapping("/refactorImage")
-  public String refactor(Model model, @RequestParam("file") MultipartFile file,@RequestParam int id,String name,int cost) throws IOException {
-    Item item = new Item();
 
-    if (file != null) {
-        File uploadDirectory = new File(uploadPath);
-        if (!uploadDirectory.exists()) {
-            uploadDirectory.mkdir();
+    @PostMapping("/refactorImage")
+    public String refactor(Model model, @RequestParam("file") MultipartFile file,@RequestParam int id) throws IOException {
+        Item item = new Item();
+        if (file != null) {
+            File uploadDirectory = new File(uploadPath);
+            if (!uploadDirectory.exists()) {
+                uploadDirectory.mkdir();
+            }
+            String resultFilename = file.getOriginalFilename();
+            file.transferTo(new File(uploadPath + "/" + resultFilename));
+            item.setFilename(resultFilename);
         }
-        String resultFilename =file.getOriginalFilename();
+        item.setId(id);
+        itemDao.RefactorFilename(item);
+        return "redirect:/";
+    }
 
-        file.transferTo(new File(uploadPath + "/" +resultFilename));
-        item.setid(id);
-        item.setFilename(resultFilename);
+    @PostMapping("/refactorItem")
+    public String refactor(Model model,@RequestParam int id, String name, int cost) throws  IOException{
+        Item item = new Item();
+        item.setId(id);
         item.setName(name);
         item.setCost(cost);
+        itemDao.RefactorItem(item);
+        return "redirect:/";
     }
-    itemDao.RefactorFilename(item);
-    return "redirect:/" ;
+    @PostMapping("/AddItem")
+    public String add(Model model,@RequestParam  String name, int cost){
+        Item item = new Item();
+        item.setName(name);
+        item.setCost(cost);
+        itemDao.AddNewItem(item);
+        return "redirect:/";
+    }
 }
-}
-

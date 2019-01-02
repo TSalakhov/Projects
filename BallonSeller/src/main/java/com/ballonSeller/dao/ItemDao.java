@@ -8,4 +8,6 @@ import java.util.List;
 public interface ItemDao {
     List<Item> ShowAllBallon();
     Item RefactorFilename(Item item);
+    Item RefactorItem(Item item);
+    Item AddNewItem(Item item);
 }
